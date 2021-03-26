@@ -5,66 +5,105 @@ import java.util.Scanner;
 
 public class Briefcine {
 
-
-    public static void main(String[] args) {
-
-
-        // On declare un scanner pour lire les entrees de la console
-        Scanner sc = new Scanner(System.in);
-
-        //Creation du tableau 2d
-
-        String[][] cinema = new String[7][10];
-
-        //Index variables declarées
-
-//message pour accueillir le client
-        System.out.println("Bonjour et bienvenue dans votre cinema Pathe");
-        sc.nextLine();
-
-        //Demander quelle est la rangée pour la réservation et recuperer le numéro de rang
-        System.out.println("Selectionner votre rangée entre 0 et 6: ");
-        int rangeeSelectionnee = sc.nextInt();
-        sc.nextLine();
-
-        if (rangeeSelectionnee > 6) {
-            System.out.println("Selection impossible, merci de sélectionner une autre rangée entre 0 et 6: ");
-            rangeeSelectionnee = sc.nextInt();
-            sc.nextLine();
-        }
+    //creation fonction pour afficher la salle
+    private static void affichagedelasalle(String[][] salle) {
+        for (int i = 0; i < salle.length; i++) {
+            for (int j = 0; j < salle[i].length; j++) {
 
 
-        //Demander le nombre de place a reserver
-        System.out.println("Combien de places souhaitez vous reserver(10 max) : ");
-        int nbreDePlaceDemandes = sc.nextInt();
-        sc.nextLine();
-
-        // Verifier la disponiblite sur la rangée concernée
-
-
-        //parcourir et afficher le tableau
-
-
-        for (int lines = 0; lines < cinema.length; lines++) {
-
-            for (int columns = 0; columns < cinema[lines].length; columns++) {
-//
-                String siegeVide = "[-]";
-                if ((cinema[lines][columns]) == null) {
-                    cinema[lines][columns] = siegeVide;
-
-
-                }
-                System.out.print(cinema[lines][columns] + " ");
-
-//on imprime le tableau
-
+                System.out.print("[" + salle[i][j] + "]");
             }
             System.out.println();
         }
 
     }
+
+    public static void main(String[] args) {
+
+        //Declaration du scanner
+
+        Scanner sc = new Scanner(System.in);
+
+        //Déclaration du tableau pour representer la salle de cinema
+
+        String[][] salle = new String[7][10];
+
+
+        //Afficher la salle de cinema
+
+
+        for (int i = 0; i < salle.length; i++) {
+            for (int j = 0; j < salle[i].length; j++) {
+
+                salle[i][j] = "-";
+
+                System.out.print("[" + salle[i][j] + "]");
+            }
+            System.out.println();
+        }
+
+
+//Demarrage grande boucle pour répéter l'ensemble du code ci dessous
+
+        for (int a = 0; a < 10; a++) {
+
+
+            System.out.println("Bonjour et bienvenue dans votre cinéma!");
+
+//demander au client quelle rangée reserver
+
+            System.out.println("Pour reserver ,merci de choisir votre rangée de 1 a 7: ");
+            int rangeeDemandee = sc.nextInt();
+            sc.nextLine();
+            if (rangeeDemandee > 7) {
+                System.out.println("Merci de ressaisir un nombre de places entre 1 et 7: ");
+                rangeeDemandee = sc.nextInt();
+                sc.nextLine();
+            }
+
+
+//demander au client combien de places il souhaite reserver
+
+            System.out.println("Combien de place souhaitez vous reserver(max 10): ");
+            int placesAreserver = sc.nextInt();
+            sc.nextLine();
+
+            if (placesAreserver > 10) {
+                System.out.println("Merci de ressaisir un nombre de places entre 0 et 10: ");
+                placesAreserver = sc.nextInt();
+                sc.nextLine();
+            }
+
+//Boucle pour parcourir la salle de cinema en y incluant les informations recuperees precedemment (sans imprimer le tableau)
+
+
+
+            for (int l = 0; l < salle.length; l++) {
+                if (l == rangeeDemandee - 1) { //on precise le -1 pour prendre en compte le demarrage à 0 de l'index du tableau
+                    for (int c =0; c < salle[l].length && c < placesAreserver; c++) {
+                        if (salle[l][c] == "-") {
+                            salle[l][c] = "X";
+
+                        }
+
+                    }
+
+                }
+
+                //on reimprime le tableau avec les informations
+
+                affichagedelasalle(salle);
+
+            }
+
+        }
+
+    }
+
+
 }
+
+
 
 
 
